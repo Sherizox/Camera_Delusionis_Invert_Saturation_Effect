@@ -4,7 +4,7 @@ using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using FAE;
 
-public class PlayerTriggerEffect : MonoBehaviour
+public class PostChangingEffect : MonoBehaviour
 {
     public float targetSaturation = 0f;
     public float windStrengthIncrease = 0.5f; 
@@ -15,7 +15,6 @@ public class PlayerTriggerEffect : MonoBehaviour
     private ColorAdjustments colorAdjustments;
     private float originalSaturation;
     private Coroutine effectCoroutine;
-
   
     private WindController windController;
     private float originalWindStrength;
@@ -24,7 +23,6 @@ public class PlayerTriggerEffect : MonoBehaviour
 
     private void Start()
     {
-     
         Volume postProcessVolume = FindObjectOfType<Volume>();
         if (postProcessVolume != null)
         {
@@ -33,7 +31,6 @@ public class PlayerTriggerEffect : MonoBehaviour
                 originalSaturation = colorAdjustments.saturation.value;
         }
 
-     
         windController = FindObjectOfType<WindController>();
         if (windController != null)
         {
@@ -47,13 +44,10 @@ public class PlayerTriggerEffect : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-           
             if (effectCoroutine != null)
             {
                 StopCoroutine(effectCoroutine);
             }
-
-          
             effectCoroutine = StartCoroutine(ApplyEffects());
         }
     }
@@ -62,12 +56,10 @@ public class PlayerTriggerEffect : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-         
             if (effectCoroutine != null)
             {
                 StopCoroutine(effectCoroutine);
             }
-
             effectCoroutine = StartCoroutine(ResetEffects());
         }
     }
@@ -75,8 +67,6 @@ public class PlayerTriggerEffect : MonoBehaviour
     private IEnumerator ApplyEffects()
     {
         float elapsedTime = 0f;
-        
-       
         float currentSaturation = colorAdjustments.saturation.value;
         float currentWindStrength = windController.windStrength;
         float currentWindWeight = windController.trunkWindWeight;
@@ -84,7 +74,6 @@ public class PlayerTriggerEffect : MonoBehaviour
 
         while (elapsedTime < effectDuration)
         {
-         
             if (colorAdjustments != null)
             {
                 colorAdjustments.saturation.value = Mathf.Lerp(currentSaturation, targetSaturation, elapsedTime / effectDuration);
@@ -105,7 +94,6 @@ public class PlayerTriggerEffect : MonoBehaviour
             yield return null;
         }
 
-     
         if (colorAdjustments != null)
         {
             colorAdjustments.saturation.value = targetSaturation;
@@ -122,7 +110,6 @@ public class PlayerTriggerEffect : MonoBehaviour
     private IEnumerator ResetEffects()
     {
         float elapsedTime = 0f;
-
         float currentSaturation = colorAdjustments.saturation.value;
         float currentWindStrength = windController.windStrength;
         float currentWindWeight = windController.trunkWindWeight;
@@ -130,7 +117,6 @@ public class PlayerTriggerEffect : MonoBehaviour
 
         while (elapsedTime < effectDuration)
         {
-            
             if (colorAdjustments != null)
             {
                 colorAdjustments.saturation.value = Mathf.Lerp(currentSaturation, originalSaturation, elapsedTime / effectDuration);
@@ -147,7 +133,6 @@ public class PlayerTriggerEffect : MonoBehaviour
             yield return null;
         }
 
-        
         if (colorAdjustments != null)
         {
             colorAdjustments.saturation.value = originalSaturation;
