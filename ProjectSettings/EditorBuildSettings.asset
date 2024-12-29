@@ -6,6 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Game.unity
+    path: Assets/Scene/Camera_Delusionis_Invert_Saturation_Effect.unity
     guid: 90c16ec1a5c44974ea931a6413ce6a7d
   m_configObjects: {}
+  m_UseUCBPForAssetBundles: 0
