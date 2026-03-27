@@ -1,0 +1,5 @@
+﻿<Solution>
+  <Project Path="sc.fae.editor.csproj" />
+  <Project Path="Assembly-CSharp.csproj" />
+  <Project Path="sc.fae.runtime.csproj" />
+</Solution>
